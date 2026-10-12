@@ -1,0 +1,364 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GLV MediCare | Your Health Companion</title>
+
+<style>
+*{box-sizing:border-box;scroll-behavior:smooth}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f8fc;color:#183047}
+header{background:#063b55;color:white;padding:20px 7%;display:flex;
+justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px}
+.logo{font-size:25px;font-weight:bold}
+.logo span{color:#51e3c2}
+nav{display:flex;gap:17px;flex-wrap:wrap}
+nav a{color:white;text-decoration:none;font-weight:bold;font-size:14px}
+nav a:hover{color:#51e3c2}
+.hero{padding:65px 8%;text-align:center;background:linear-gradient(135deg,#063b55,#087e8b);color:white}
+.hero h1{font-size:clamp(30px,5vw,48px);margin:0 0 15px}
+.hero p{font-size:17px;line-height:1.7}
+.searchbox{display:flex;max-width:650px;margin:25px auto 0;gap:8px}
+input,button{font:inherit;border-radius:10px;padding:14px;border:1px solid #d5e0e9}
+input{width:100%;min-width:0;background:white;color:#183047}
+button{background:#087e8b;color:white;border:0;font-weight:bold;cursor:pointer}
+button:hover{background:#065f6b}
+section{padding:45px 7%}
+h2{text-align:center;color:#063b55;font-size:29px}
+.sub{text-align:center;color:#607789;line-height:1.7}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:25px}
+.card{background:white;padding:23px;border-radius:16px;box-shadow:0 5px 20px #16344b10}
+.card h3{color:#087e8b;margin-top:0}
+.result{display:none;max-width:850px;margin:25px auto 0;background:white;color:#183047;
+padding:25px;border-radius:16px;text-align:left;box-shadow:0 8px 25px #002b3b30}
+.result h2{text-align:left}
+.result p{line-height:1.8}
+.result a,.card a{color:#087e8b;font-weight:bold}
+.notice{background:#fff4d6;border-left:5px solid #e4a72c;padding:15px;
+border-radius:8px;line-height:1.7;margin:18px 0}
+.small{font-size:13px;color:#607789;line-height:1.7}
+.hospital{background:#e5f7f4}
+.hospitalbox{max-width:650px;margin:25px auto;display:flex;gap:8px;flex-wrap:wrap}
+.hospitalbox input{flex:1;min-width:180px}
+.hospitalbox button{margin:0}
+footer{background:#063b55;color:white;text-align:center;padding:28px;line-height:1.8}
+@media(max-width:600px){
+ header{justify-content:center;text-align:center}
+ nav{justify-content:center}
+ .hero{padding:45px 5%}
+ .searchbox{flex-direction:column}
+ section{padding:35px 5%}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">GLV <span>MediCare</span></div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#search">Disease Guide</a>
+    <a href="#learn">Health Topics</a>
+    <a href="#hospitals">Hospitals</a>
+    <a href="#about">About</a>
+  </nav>
+</header>
+
+<div class="hero" id="home">
+  <h1>Your Health, Our Priority 💙</h1>
+  <p>Explore health information, understand possible causes, learn about treatment options and find nearby hospitals.</p>
+  <a href="#search"><button>Explore Health Topics →</button></a>
+</div>
+
+<section id="search">
+  <h2>🔎 Search Any Health Topic</h2>
+  <p class="sub">Enter a disease, symptom or health condition.</p>
+
+  <div class="searchbox">
+    <input id="diseaseInput" placeholder="e.g. cancer, throat pain, migraine..."
+      aria-label="Enter a disease or symptom"
+      onkeydown="if(event.key==='Enter')searchHealth()">
+    <button onclick="searchHealth()">Search</button>
+  </div>
+
+  <div id="result" class="result" aria-live="polite"></div>
+
+  <p class="small" style="text-align:center">
+    Search covers built-in topics and provides a route to trusted online health information
+    for other queries.
+  </p>
+</section>
+
+<section id="learn">
+  <h2>Popular Health Topics</h2>
+  <p class="sub">Choose a topic to learn more.</p>
+
+  <div class="cards">
+    <div class="card">
+      <h3>🫁 Asthma</h3>
+      <p>A condition that affects the airways and may cause wheezing or breathing difficulty.</p>
+      <a href="https://medlineplus.gov/asthma.html" target="_blank" rel="noopener">Learn more →</a>
+    </div>
+    <div class="card">
+      <h3>🩸 Diabetes</h3>
+      <p>A condition that affects how the body regulates blood glucose.</p>
+      <a href="https://medlineplus.gov/diabetes.html" target="_blank" rel="noopener">Learn more →</a>
+    </div>
+    <div class="card">
+      <h3>❤️ High Blood Pressure</h3>
+      <p>Blood pressure that remains higher than the recommended range.</p>
+      <a href="https://medlineplus.gov/highbloodpressure.html" target="_blank" rel="noopener">Learn more →</a>
+    </div>
+    <div class="card">
+      <h3>🎗️ Cancer</h3>
+      <p>A group of diseases involving abnormal cells growing uncontrollably.</p>
+      <a href="https://medlineplus.gov/cancer.html" target="_blank" rel="noopener">Learn more →</a>
+    </div>
+    <div class="card">
+      <h3>🗣️ Sore Throat</h3>
+      <p>Throat pain can have several causes, including infections and irritation.</p>
+      <a href="https://medlineplus.gov/sorethroat.html" target="_blank" rel="noopener">Learn more →</a>
+    </div>
+    <div class="card">
+      <h3>🤧 Common Cold</h3>
+      <p>A viral respiratory infection that often causes a runny nose and sneezing.</p>
+      <a href="https://medlineplus.gov/commoncold.html" target="_blank" rel="noopener">Learn more →</a>
+    </div>
+  </div>
+</section>
+
+<section class="hospital" id="hospitals">
+  <h2>🏥 Find Hospitals Near You</h2>
+  <p class="sub">Enter your city or PIN code to find hospitals on Google Maps.</p>
+
+  <div class="hospitalbox">
+    <input id="locationInput" placeholder="e.g. Hyderabad or 500001"
+      aria-label="Enter city or PIN code"
+      onkeydown="if(event.key==='Enter')findHospitals()">
+    <button onclick="findHospitals()">Find Hospitals</button>
+  </div>
+
+  <div style="text-align:center">
+    <button onclick="useMyLocation()">📍 Use My Current Location</button>
+    <p class="small">Location access requires your permission. Your location is used to open a nearby-hospital search.</p>
+  </div>
+</section>
+
+<section id="about">
+  <h2>About GLV MediCare</h2>
+  <div class="card">
+    <p>GLV MediCare is a health-information project designed to make reliable medical information easier to explore.</p>
+    <p>Our goal is to help people learn about health topics and locate hospitals.</p>
+    <div class="notice">
+      <strong>Important health notice:</strong> This website does not diagnose diseases or prescribe medicines.
+      Symptoms can have different causes. Consult a qualified healthcare professional for diagnosis and treatment.
+      For severe breathing difficulty, chest pain or another medical emergency, seek emergency care immediately.
+    </div>
+  </div>
+</section>
+
+<footer>
+  <strong>GLV MediCare 💙</strong>
+  <p>Learn about health. Make informed decisions.</p>
+  <p>Health information source: MedlinePlus, U.S. National Library of Medicine.</p>
+  <p>Educational project — not a substitute for professional medical advice.</p>
+</footer>
+
+<script>
+const topics = {
+  "asthma": {
+    name:"Asthma",
+    causes:"Asthma involves inflamed and sensitive airways. Triggers can include allergens, smoke, exercise and respiratory infections.",
+    symptoms:"Wheezing, coughing, chest tightness and shortness of breath.",
+    treatment:"A healthcare professional may recommend inhalers and an asthma management plan.",
+    url:"https://medlineplus.gov/asthma.html"
+  },
+  "diabetes": {
+    name:"Diabetes",
+    causes:"Diabetes affects how the body regulates blood glucose. Type 1 and type 2 diabetes have different causes.",
+    symptoms:"Increased thirst, frequent urination and fatigue may occur. Some people have no obvious symptoms.",
+    treatment:"Care depends on the type and may include monitoring, lifestyle support and prescribed medicines.",
+    url:"https://medlineplus.gov/diabetes.html"
+  },
+  "high blood pressure": {
+    name:"High Blood Pressure",
+    causes:"Age, genetics, lifestyle and other health conditions can contribute.",
+    symptoms:"It often causes no noticeable symptoms. Blood pressure must be measured to identify it.",
+    treatment:"A clinician may recommend lifestyle changes and, when appropriate, prescribed medication.",
+    url:"https://medlineplus.gov/highbloodpressure.html"
+  },
+  "cancer": {
+    name:"Cancer",
+    causes:"Cancer develops when abnormal cells grow uncontrollably. Causes and risk factors differ between cancer types.",
+    symptoms:"Symptoms vary. A lump, unusual bleeding, persistent fatigue or unexplained changes can have many causes and do not automatically mean cancer.",
+    treatment:"Treatment depends on the specific cancer and may involve surgery, radiation, chemotherapy, immunotherapy or other specialist care.",
+    url:"https://medlineplus.gov/cancer.html"
+  },
+  "throat pain": {
+    name:"Throat Pain",
+    causes:"Possible causes include viral infections, some bacterial infections, allergies, dry air and irritation.",
+    symptoms:"Pain when swallowing, scratchiness, irritation or hoarseness.",
+    treatment:"Treatment depends on the cause. A clinician can assess whether specific treatment is needed.",
+    url:"https://medlineplus.gov/sorethroat.html"
+  },
+  "sore throat": {
+    name:"Sore Throat",
+    causes:"Common causes include viral infections, some bacterial infections, allergies and irritants.",
+    symptoms:"Throat discomfort, scratchiness and pain when swallowing.",
+    treatment:"Treatment depends on the cause. Antibiotics only treat certain bacterial infections and require appropriate assessment.",
+    url:"https://medlineplus.gov/sorethroat.html"
+  },
+  "fever": {
+    name:"Fever",
+    causes:"Fever can occur with infections and other medical conditions. It is a sign, not a disease by itself.",
+    symptoms:"Raised body temperature, sometimes with chills, sweating or tiredness.",
+    treatment:"Treatment depends on the cause. Rest and fluids may help some people; seek medical advice for concerning symptoms.",
+    url:"https://medlineplus.gov/fever.html"
+  },
+  "headache": {
+    name:"Headache",
+    causes:"Possible causes include tension, migraine, infections, dehydration and other conditions.",
+    symptoms:"Pain or pressure in the head, sometimes with other symptoms.",
+    treatment:"Treatment depends on the type and cause. A healthcare professional can help identify suitable care.",
+    url:"https://medlineplus.gov/headache.html"
+  },
+  "migraine": {
+    name:"Migraine",
+    causes:"Migraine is a neurological condition. Triggers vary between individuals.",
+    symptoms:"Episodes may involve head pain, nausea and sensitivity to light or sound.",
+    treatment:"A clinician can recommend appropriate treatment based on symptoms and medical history.",
+    url:"https://medlineplus.gov/migraine.html"
+  },
+  "cough": {
+    name:"Cough",
+    causes:"Possible causes include respiratory infections, allergies, asthma, reflux and other conditions.",
+    symptoms:"Coughing, sometimes with mucus or throat irritation.",
+    treatment:"Treatment depends on the cause. Persistent, worsening or concerning coughs should be assessed.",
+    url:"https://medlineplus.gov/cough.html"
+  },
+  "common cold": {
+    name:"Common Cold",
+    causes:"The common cold is caused by respiratory viruses.",
+    symptoms:"Runny or blocked nose, sneezing, sore throat and coughing.",
+    treatment:"Rest, fluids and suitable symptom relief may help. Antibiotics do not treat viral colds.",
+    url:"https://medlineplus.gov/commoncold.html"
+  },
+  "chickenpox": {
+    name:"Chickenpox",
+    causes:"Chickenpox is caused by the varicella-zoster virus.",
+    symptoms:"An itchy rash with fluid-filled spots and sometimes fever.",
+    treatment:"A healthcare professional can advise on care and whether antiviral treatment is appropriate.",
+    url:"https://medlineplus.gov/chickenpox.html"
+  },
+  "anemia": {
+    name:"Anemia",
+    causes:"Anemia can result from iron deficiency, vitamin deficiencies, blood loss or other conditions.",
+    symptoms:"Possible symptoms include tiredness, weakness and dizziness.",
+    treatment:"Treatment depends on the underlying cause. Do not start iron supplements without appropriate advice.",
+    url:"https://medlineplus.gov/anemia.html"
+  }
+};
+
+function normalize(text) {
+  return text.trim().toLowerCase().replace(/\s+/g," ");
+}
+
+function searchHealth() {
+  const raw = document.getElementById("diseaseInput").value;
+  const query = normalize(raw);
+  const result = document.getElementById("result");
+
+  if (!query) {
+    result.style.display = "block";
+    result.innerHTML = "<h3>Enter a health topic first!</h3><p>Try cancer, throat pain, fever or migraine.</p>";
+    return;
+  }
+
+  let topic = topics[query];
+
+  if (!topic) {
+    const key = Object.keys(topics).find(k =>
+      k.includes(query) || query.includes(k)
+    );
+    if (key && query.length >= 3) topic = topics[key];
+  }
+
+  result.style.display = "block";
+
+  if (topic) {
+    result.innerHTML = `
+      <h2>${topic.name}</h2>
+      <h3>Possible causes</h3>
+      <p>${topic.causes}</p>
+      <h3>Possible symptoms</h3>
+      <p>${topic.symptoms}</p>
+      <h3>Treatment information</h3>
+      <p>${topic.treatment}</p>
+      <div class="notice">
+        This is general information, not a diagnosis or personal prescription.
+        Ask a qualified healthcare professional what treatment is right for you.
+      </div>
+      <p><a href="${topic.url}" target="_blank" rel="noopener">Read the trusted medical guide →</a></p>
+      <button onclick="searchOnline()">Search more health information</button>
+    `;
+  } else {
+    result.innerHTML = `
+      <h2>Search: ${escapeText(raw)}</h2>
+      <p>This topic isn't in our built-in guide yet. You can search for it in MedlinePlus, a health-information service from the U.S. National Library of Medicine.</p>
+      <p>Online search results may discuss causes, symptoms and treatment options. They cannot confirm what condition a person has.</p>
+      <button onclick="searchOnline()">Search this topic online ↗</button>
+      <p class="small">For a diagnosis or medicine advice, consult a qualified healthcare professional.</p>
+    `;
+  }
+
+  result.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function escapeText(text) {
+  const div = document.createElement("div");
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+function searchOnline() {
+  const query = document.getElementById("diseaseInput").value.trim();
+  if (!query) return;
+  const url = "https://medlineplus.gov/search/?query=" + encodeURIComponent(query);
+  window.open(url,"_blank","noopener");
+}
+
+function findHospitals() {
+  const place = document.getElementById("locationInput").value.trim();
+  if (!place) {
+    alert("Please enter a city or PIN code first.");
+    return;
+  }
+  const url = "https://www.google.com/maps/search/" +
+    encodeURIComponent("hospitals near " + place);
+  window.open(url,"_blank","noopener");
+}
+
+function useMyLocation() {
+  if (!navigator.geolocation) {
+    alert("Your browser does not support location services. Enter your city or PIN code instead.");
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    position => {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+      const url = "https://www.google.com/maps/search/hospitals/@"
+        + lat + "," + lon + ",14z";
+      window.open(url,"_blank","noopener");
+    },
+    () => alert("Location access was unavailable. Please allow location access or enter your city/PIN code."),
+    {timeout:10000}
+  );
+}
+</script>
+
+</body>
+</html>
